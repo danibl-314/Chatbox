@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Programas Académicos y Costos{% endblock %}
+
+{% block content %}
+<div class="main-card">
+    <h1 class="text-center section-title">Programas Académicos en Oferta</h1>
+    <p>Consulta a continuación la oferta de programas, su duración y el costo por semestre.</p>
+    
+    <table class="carreras-table">
+        <thead>
+            <tr>
+                <th>Programa</th>
+                <th>Duración</th>
+                <th>Costo Semestral</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for carrera in carreras %}
+            <tr>
+                <td>{{ carrera[0] }}</td> <td>{{ carrera[1] | default(0) }} Semestres</td>
+                
+                <td>${{ "{:,.0f}".format(carrera[2] | default(0)) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="no-programs">No hay programas disponibles para consulta.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p class="mt-4">Para inscripciones o más detalles, usa nuestro Chatbox impulsado por IA.</p>
+</div>
+{% endblock %}

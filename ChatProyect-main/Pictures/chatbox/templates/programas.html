@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Programas Académicos (Administración){% endblock %}
+
+{% block content %}
+<div class="main-card">
+    <h2 class="section-title">Administración de Programas Académicos</h2>
+    <p>Aquí puedes gestionar (agregar, editar y eliminar) los programas de la universidad. Asegúrate de ingresar la duración en semestres y el costo semestral.</p>
+
+    <div class="program-admin-list">
+        {% for carrera in carreras %}
+        <div class="programa-item">
+            <div class="programa-details">
+                <h3>{{ carrera[1] }}</h3> 
+                <p>
+                    <strong>Duración:</strong> {{ carrera[2] | default(0) }} Semestres | 
+                    <strong>Costo:</strong> ${{ "{:,.0f}".format(carrera[3] or 0) }}
+                </p>
+            </div>
+            
+            <div class="actions">
+                <a href="{{ url_for('editar_carrera', id=carrera[0]) }}" class="btn edit-btn">
+                    Editar
+                </a>
+
+                <form method="POST" action="{{ url_for('eliminar_carrera', id=carrera[0]) }}" style="display: inline;">
+                    <button type="submit"
+                            class="btn delete-btn"
+                            data-programa="{{ carrera[1] | tojson }}"
+                            onclick="return confirmarEliminacion(this);">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p class="no-programs">No hay programas disponibles. ¡Usa el formulario de abajo para agregar uno!</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h3 class="mt-5">Agregar Nuevo Programa</h3>
+    <form action="{{ url_for('agregar_programa') }}" method="post" class="add-program-form">
+        <div class="form-group">
+            <label for="descripcion_carrera">Nombre del Programa:</label>
+            <input type="text" id="descripcion_carrera" name="descripcion_carrera" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="duracion_semestres">Duración (Semestres):</label>
+            <input type="number" id="duracion_semestres" name="duracion_semestres" class="form-control" required min="1">
+        </div>
+        
+        <div class="form-group">
+            <label for="precio_semestre">Costo Semestral:</label>
+            <input type="number" id="precio_semestre" name="precio_semestre" class="form-control" required step="any" min="0">
+        </div>
+        
+        <button type="submit" class="btn add-btn">Agregar Programa</button>
+    </form>
+</div>
+
+<script>
+    function confirmarEliminacion(btn) {
+        let programaJson = btn.getAttribute('data-programa');
+        let programa = JSON.parse(programaJson); 
+        return confirm(`¿Estás seguro de que quieres eliminar el programa: ${programa}?`);
+    }
+</script>
+{% endblock %}

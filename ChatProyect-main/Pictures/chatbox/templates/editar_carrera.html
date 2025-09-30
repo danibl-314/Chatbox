@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Programa{% endblock %}
+
+{% block content %}
+<div class="main-card"> 
+    <h2 class="section-title">Editar Programa: {{ carrera[1] }}</h2>
+    <p>Actualiza la información del programa académico seleccionado.</p>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label for="descripcion_carrera">Nombre del Programa:</label>
+            <input type="text" id="descripcion_carrera" name="descripcion_carrera" 
+                   value="{{ carrera[1] }}" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="duracion_semestres">Duración (Semestres):</label>
+            <input type="number" id="duracion_semestres" name="duracion_semestres" 
+                   value="{{ carrera[2] | default(0) }}" class="form-control" required min="1">
+        </div>
+        
+        <div class="form-group">
+            <label for="precio_semestre">Costo Semestral:</label>
+            <input type="number" id="precio_semestre" name="precio_semestre" 
+                   value="{{ carrera[3] | default(0) }}" class="form-control" required step="any" min="0">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn add-btn">Guardar Cambios</button>
+            <a href="{{ url_for('programas') }}" class="btn cancel-btn">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

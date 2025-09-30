@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %} Chatbox GEMINI {% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <h1 class="text-center chat-title">Chatbox Powered by GEMINI</h1>
+    <p class="text-center chat-subtitle">Cuentame, ¿En que te puedo ayudar el dia de hoy? 🤖</p>
+
+    {% if user_prompt and model_response %}
+    <div class="chat-history mb-4">
+        
+        <div class="user-message">
+            <p><strong>Tú:</strong></p>
+            <p>{{ user_prompt }}</p>
+        </div>
+
+        <div class="gemini-response">
+            <p><strong>GEMINI:</strong></p>
+            <p>{{ model_response }}</p>
+        </div>
+        
+    </div>
+    {% endif %}
+
+    <form action="{{ url_for('predict') }}" method="post" class="chat-form"> 
+        <div class="mb-3">
+            <label for="prompt" class="form-label">Escribe tu Mensaje</label>
+            <textarea class="form-control" id="prompt" name="prompt" rows="4" placeholder="Escribe aquí....." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary send-btn">ENVIAR</button>
+    </form>
+</div>
+{% endblock %}

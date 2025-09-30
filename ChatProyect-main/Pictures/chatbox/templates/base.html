@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Universidad{% endblock %}</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <img src="https://universitariadecolombia.edu.co/wp-content/uploads/2025/04/Logo_universitaria_white_3-1.png" width="169" height="57" alt="Universitaria de Colombia Logo">
+            <h1>Universitaria de Colombia</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('vision') }}">Visión</a></li>
+                <li><a href="{{ url_for('mision') }}">Misión</a></li>
+                <li><a href="{{ url_for('programas') }}">Programas</a></li>
+                <li><a href="{{ url_for('chat') }}">Chatbox GEMINI</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        {% block content %}{% endblock %} 
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Universitaria de Colombia</p>
+    </footer>
+    
+</body>
+</html>

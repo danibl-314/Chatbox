@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-card"> 
+    
+    <h1>¡Bienvenido a la Universidad!</h1>
+    <p>Somos una institución comprometida con la excelencia académica y la formación integral de nuestros estudiantes. Aquí, el conocimiento se encuentra con la innovación para crear un futuro brillante.</p>
+    
+    <a href="{{ url_for('carreras_vista') }}" class="btn cta-btn">
+        Explora nuestros programas
+    </a>
+    
+    <hr> <h2>Lo que nos hace únicos</h2>
+    <ul>
+        <li>Investigación de vanguardia</li>
+        <li>Cuerpo docente altamente calificado</li>
+        <li>Infraestructura moderna</li>
+        <li>Conexiones con la industria</li>
+    </ul>
+
+</div>
+{% endblock %}
